@@ -1,73 +1,876 @@
----
-layout: page
-title: Juqiang Chen
-subtitle: Data science for Speech and Language studies
-bigimg: /img/syd2.jpg
-use-site-title: true
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juqiang Chen - Shanghai Jiao Tong University</title>
+  <meta name="description" content="Juqiang Chen, Tenure-track Associate Professor at School of Foreign Languages, Shanghai Jiao Tong University. Research interests: experimental phonetics, psycholinguistics, aphasia research, corpus linguistics, data science, digital humanities.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: #333;
+      line-height: 1.6;
+      background: #fff;
+    }
+    a { color: #990000; text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-<div class="posts-list">
-  {% for post in paginator.posts %}
-  <article class="post-preview">
-    <a href="{{ post.url | prepend: site.baseurl }}">
-	  <h2 class="post-title">{{ post.title }}</h2>
+    .masthead {
+      background: #fff;
+      border-bottom: 1px solid #e8e8e8;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .masthead__inner-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .masthead__menu {
+      display: flex;
+      align-items: center;
+      height: 50px;
+    }
+    .greedy-nav {
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+    .greedy-nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+    }
+    .masthead__menu-item a,
+    .masthead__menu-item button {
+      display: block;
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      color: #333;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+    .masthead__menu-item a:hover,
+    .masthead__menu-item button:hover {
+      color: #990000;
+      text-decoration: none;
+    }
+    .masthead__menu-item.selected a {
+      color: #990000;
+      border-bottom: 3px solid #990000;
+    }
+    .masthead__menu-item--lg a {
+      font-size: 1rem;
+    }
+    .theme-toggle-button {
+      background: none !important;
+      border: none !important;
+      cursor: pointer;
+      font-size: 1rem;
+      color: #333;
+    }
 
-	  {% if post.subtitle %}
-	  <h3 class="post-subtitle">
-	    {{ post.subtitle }}
-	  </h3>
-	  {% endif %}
-    </a>
+    #main {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 2rem;
+      padding: 2rem 1rem;
+    }
 
-    <p class="post-meta">
-      Posted on {{ post.date | date: "%B %-d, %Y" }}
-    </p>
+    .sidebar {
+      width: 260px;
+      flex-shrink: 0;
+    }
+    .author__avatar {
+      width: 100%;
+      max-width: 200px;
+      margin: 0 auto 1rem;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    .author__avatar img {
+      width: 100%;
+      height: auto;
+      border-radius: 50%;
+      display: block;
+    }
+    .author__content {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .author__name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+    .author__bio {
+      font-size: 0.875rem;
+      color: #666;
+    }
+    .author__urls-wrapper {
+      text-align: center;
+    }
+    .author__urls-wrapper .btn {
+      display: inline-block;
+      padding: 0.4rem 1rem;
+      font-size: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #fff;
+      cursor: pointer;
+      margin-bottom: 0.5rem;
+    }
+    .author__urls {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+    }
+    .author__urls li {
+      font-size: 0.8rem;
+      padding: 0.3rem 0;
+      color: #555;
+    }
+    .author__urls a {
+      color: #555;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .author__urls a:hover { color: #990000; }
+    .author-profile-icon {
+      width: 18px;
+      text-align: center;
+      color: #888;
+    }
 
-    <div class="post-entry-container">
-      {% if post.image %}
-      <div class="post-image">
-        <a href="{{ post.url | prepend: site.baseurl }}">
-          <img src="{{ post.image }}">
-        </a>
-      </div>
-      {% endif %}
-      <div class="post-entry">
-        {{ post.excerpt | strip_html | xml_escape | truncatewords: site.excerpt_length }}
-        {% assign excerpt_word_count = post.excerpt | number_of_words %}
-        {% if post.content != post.excerpt or excerpt_word_count > site.excerpt_length %}
-          <a href="{{ post.url | prepend: site.baseurl }}" class="post-read-more">[Read&nbsp;More]</a>
-        {% endif %}
+    .content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .hero { margin-bottom: 2rem; }
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .hero .subtitle {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+    .hero .subtitle span {
+      color: #999;
+      margin: 0 0.3rem;
+    }
+    .hero .bio-text {
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .hero .bio-text strong { font-weight: 700; }
+    .hero .cta-links {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 0.6rem 1.2rem;
+      background: #990000;
+      color: #fff;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .btn-primary:hover {
+      background: #7a0000;
+      text-decoration: none;
+      color: #fff;
+    }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.2rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      color: #333;
+    }
+    .btn-outline:hover {
+      border-color: #990000;
+      color: #990000;
+      text-decoration: none;
+    }
+
+    .scholar-metrics {
+      display: flex;
+      gap: 2rem;
+      padding: 1rem 0;
+      border-top: 1px solid #e8e8e8;
+      border-bottom: 1px solid #e8e8e8;
+      margin-bottom: 1rem;
+    }
+    .metric { text-align: center; }
+    .metric .number {
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: block;
+    }
+    .metric .label {
+      font-size: 0.8rem;
+      color: #888;
+    }
+    .scholar-note {
+      font-size: 0.8rem;
+      color: #999;
+      margin-bottom: 1rem;
+    }
+
+    .opportunity-note {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+    .opportunity-note strong { font-weight: 700; }
+
+    .section-heading {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-top: 2.5rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #990000;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .timeline-date {
+      width: 160px;
+      flex-shrink: 0;
+      font-size: 0.85rem;
+      color: #888;
+      padding-top: 0.2rem;
+    }
+    .timeline-content h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+    .timeline-content p {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .research-area {
+      border-left: 4px solid #990000;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1rem;
+      background: #fdf5f5;
+      border-radius: 0 6px 6px 0;
+    }
+    .research-area .area-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #990000;
+      margin-bottom: 0.3rem;
+    }
+    .research-area h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .research-area p {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .publication-entry { margin-bottom: 1.5rem; }
+    .publication-entry h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+    .publication-entry h3 a { color: #333; }
+    .publication-entry h3 a:hover { color: #990000; }
+    .publication-meta {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 0.3rem;
+    }
+    .publication-meta em { font-style: italic; }
+    .publication-theme-line { margin-bottom: 0.3rem; }
+    .publication-theme {
+      display: inline-block;
+      font-size: 0.75rem;
+      padding: 0.15rem 0.5rem;
+      background: #fde8e8;
+      color: #990000;
+      border-radius: 3px;
+    }
+    .publication-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .publication-action {
+      font-size: 0.8rem;
+      padding: 0.2rem 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      color: #555;
+    }
+    .publication-action:hover {
+      border-color: #990000;
+      color: #990000;
+      text-decoration: none;
+    }
+
+    .awards-list {
+      list-style: disc;
+      padding-left: 1.5rem;
+    }
+    .awards-list li {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+    .awards-list li strong { font-weight: 700; }
+    .award-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      padding: 0.1rem 0.4rem;
+      background: #fff3cd;
+      color: #856404;
+      border-radius: 3px;
+      margin-left: 0.3rem;
+    }
+
+    .profiles-section {
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    .teaching-card {
+      border: 1px solid #e8e8e8;
+      border-radius: 6px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      transition: border-color 0.2s;
+    }
+    .teaching-card:hover {
+      border-color: #990000;
+    }
+    .teaching-card .course-icon {
+      font-size: 2rem;
+      color: #990000;
+      flex-shrink: 0;
+      width: 50px;
+      text-align: center;
+      padding-top: 0.2rem;
+    }
+    .teaching-card .course-info h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .teaching-card .course-info h3 a {
+      color: #333;
+    }
+    .teaching-card .course-info h3 a:hover {
+      color: #990000;
+    }
+    .teaching-card .course-info p {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 0.3rem;
+    }
+    .teaching-card .course-info .course-link {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #990000;
+    }
+
+    .site-footer {
+      border-top: 1px solid #e8e8e8;
+      padding: 2rem 1rem;
+      margin-top: 3rem;
+    }
+    .site-footer__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-social {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .footer-social strong {
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .footer-social a {
+      color: #555;
+      font-size: 1.2rem;
+    }
+    .footer-social a:hover { color: #990000; }
+    .footer-copyright {
+      font-size: 0.8rem;
+      color: #999;
+    }
+
+    @media (max-width: 768px) {
+      #main { flex-direction: column; }
+      .sidebar { width: 100%; text-align: center; }
+      .author__urls { text-align: center; }
+      .timeline-item { flex-direction: column; gap: 0.3rem; }
+      .timeline-date { width: auto; }
+      .scholar-metrics { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead__inner-wrap">
+      <div class="masthead__menu">
+        <nav class="greedy-nav">
+          <ul>
+            <li class="masthead__menu-item masthead__menu-item--lg">
+              <a href="#">Juqiang Chen (陈居强)</a>
+            </li>
+            <li class="masthead__menu-item selected">
+              <a href="#">About</a>
+            </li>
+            <li class="masthead__menu-item">
+              <a href="#publications">Publications</a>
+            </li>
+            <li class="masthead__menu-item">
+              <a href="#teaching">Teaching</a>
+            </li>
+            <li class="masthead__menu-item" style="margin-left:auto;">
+              <button class="theme-toggle-button" aria-label="Toggle dark mode">
+                <i class="fas fa-sun"></i>
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
+  </header>
 
-    {% if post.tags.size > 0 %}
-    <div class="blog-tags">
-      Tags:
-      {% if site.link-tags %}
-      {% for tag in post.tags %}
-      <a href="{{ site.baseurl }}/tags#{{- tag -}}">{{- tag -}}</a>
-      {% endfor %}
-      {% else %}
-        {{ post.tags | join: ", " }}
-      {% endif %}
+  <div id="main">
+
+    <aside class="sidebar">
+      <div class="author__avatar">
+        <img src="https://ngcee.sjtu.edu.cn/faculty/storage/common/2025/09/3d6cfe04b2c6bb3e272cc185b78ca9db.jpg" alt="Juqiang Chen">
+      </div>
+      <div class="author__content">
+        <h3 class="author__name">Juqiang Chen (陈居强)</h3>
+        <p class="author__bio">Tenure-track Associate Professor · Doctoral Supervisor<br>(长聘教轨副教授 · 博士生导师)</p>
+      </div>
+      <div class="author__urls-wrapper">
+        <button class="btn">Profiles</button>
+        <ul class="author__urls social-icons">
+          <li><span class="author-profile-icon"><i class="fas fa-map-marker-alt"></i></span> Shanghai, China (上海，中国)</li>
+          <li><span class="author-profile-icon"><i class="fas fa-building"></i></span> School of Foreign Languages, SJTU (上海交通大学外国语学院)</li>
+          <li>
+            <a href="mailto:juqiang.c@sjtu.edu.cn">
+              <span class="author-profile-icon"><i class="fas fa-envelope"></i></span>
+              juqiang.c@sjtu.edu.cn
+            </a>
+          </li>
+          <li>
+            <a href="https://www.researchgate.net/profile/Juqiang-Chen-2" target="_blank">
+              <span class="author-profile-icon"><i class="ai ai-researchgate"></i></span>
+              ResearchGate
+            </a>
+          </li>
+          <li>
+            <a href="https://scholar.google.com/citations?user=YdCQAmMAAAAJ&hl=en" target="_blank">
+              <span class="author-profile-icon"><i class="ai ai-google-scholar"></i></span>
+              Google Scholar
+            </a>
+          </li>
+          <li>
+            <a href="https://sfl.sjtu.edu.cn/faculty/43303" target="_blank">
+              <span class="author-profile-icon"><i class="fas fa-globe"></i></span>
+              中文官方主页
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/juqiangj" target="_blank">
+              <span class="author-profile-icon"><i class="fab fa-github"></i></span>
+              GitHub
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <div class="content">
+
+      <section class="hero">
+        <h1>Juqiang Chen (陈居强)</h1>
+        <p class="subtitle">TENURE-TRACK ASSOCIATE PROFESSOR <span>&middot;</span> SCHOOL OF FOREIGN LANGUAGES, SJTU<br>(长聘教轨副教授 · 上海交通大学外国语学院)</p>
+        <p class="bio-text">
+          Ph.D. from Western Sydney University, Postdoc at Shanghai Jiao Tong University. Currently a tenure-track associate professor, master's supervisor, and doctoral supervisor at the School of Foreign Languages, SJTU. My research focuses on <strong>experimental phonetics, psycholinguistics, Chinese aphasia research, corpus linguistics, data science, and digital humanities</strong>. Publications appear in authoritative journals including Journal of Phonetics, Laboratory Phonology, Second Language Research, Across Languages and Cultures, Aphasiology, Clinical Linguistics &amp; Phonetics, International Journal of Speech-Language Pathology, Modern Foreign Languages, and Foreign Languages. I have led projects funded by the National Social Science Fund of China (Post-stage), Ministry of Education Youth Project, and China Postdoctoral Science Foundation, and was selected for the Shanghai "Super Postdoctoral Fellow" Incentive Program. I supervise graduate students in phonetics and clinical linguistics.<br>
+          （西悉尼大学博士，上海交通大学博士后。现为上海交通大学外国语学院长聘教轨副教授，硕士生导师，博士生导师。研究兴趣为：<strong>实验语音学、心理语言学、汉语失语症研究、语料库语言学、数据科学、数字人文</strong>。学术论文发表在 Journal of Phonetics, Laboratory Phonology, Second Language Research, Across Languages and Cultures, Aphasiology, Clinical Linguistics &amp; Phonetics, International Journal of Speech-Language Pathology，现代外语、外国语等权威期刊。主持国家社科后期项目、教育部青年项目、博士后面上项目等，入选上海市"超级博士后"激励计划。招收语音学、病理语言学方向的硕博士生。）
+        </p>
+        <div class="cta-links">
+          <a href="#publications" class="btn-primary">Browse publications</a>
+          <a href="https://www.researchgate.net/profile/Juqiang-Chen-2" class="btn-outline" target="_blank">
+            ResearchGate Profile <i class="fas fa-external-link-alt" style="font-size:0.75rem;"></i>
+          </a>
+          <a href="https://sfl.sjtu.edu.cn/faculty/43303" class="btn-outline" target="_blank">
+            中文官方主页 <i class="fas fa-external-link-alt" style="font-size:0.75rem;"></i>
+          </a>
+        </div>
+
+        <p class="opportunity-note">
+          <strong>I am recruiting master's and doctoral students in phonetics and clinical linguistics.</strong><br>
+          If interested, please contact me at <a href="mailto:juqiang.c@sjtu.edu.cn">juqiang.c@sjtu.edu.cn</a>.<br>
+          （<strong>招收语音学、病理语言学方向的硕士和博士研究生。</strong>如有意向，请通过 <a href="mailto:juqiang.c@sjtu.edu.cn">juqiang.c@sjtu.edu.cn</a> 联系我。）
+        </p>
+
+        <!-- Google Scholar Metrics -->
+        <div class="scholar-metrics">
+          <div class="metric">
+            <span class="number">300+</span>
+            <span class="label">citations</span>
+          </div>
+          <div class="metric">
+            <span class="number">9</span>
+            <span class="label">h-index</span>
+          </div>
+          <div class="metric">
+            <span class="number">12</span>
+            <span class="label">i10-index</span>
+          </div>
+        </div>
+        <p class="scholar-note">Google Scholar metrics, last refreshed October 9, 2026</p>
+
+        <!-- ResearchGate Impact Metrics -->
+        <div class="scholar-metrics" style="margin-top: 1rem;">
+          <div class="metric">
+            <span class="number">5,000+</span>
+            <span class="label">reads</span>
+          </div>
+          <div class="metric">
+            <span class="number">300+</span>
+            <span class="label">citations</span>
+          </div>
+          <div class="metric">
+            <span class="number">9</span>
+            <span class="label">h-index</span>
+          </div>
+        </div>
+        <p class="scholar-note">ResearchGate metrics, last refreshed October 11, 2026</p>
+      </section>
+
+      <!-- Experience -->
+      <h2 class="section-heading">Work Experience (工作经历)</h2>
+      <div class="timeline-item">
+        <div class="timeline-date">Jan 2026 – Present</div>
+        <div class="timeline-content">
+          <h3>Tenure-track Associate Professor (长聘教轨副教授)</h3>
+          <p>School of Foreign Languages, Shanghai Jiao Tong University · Shanghai, China<br>(上海交通大学外国语学院 · 上海，中国)</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Jan 2024 – Dec 2025</div>
+        <div class="timeline-content">
+          <h3>Assistant Professor (助理教授)</h3>
+          <p>School of Foreign Languages, Shanghai Jiao Tong University · Shanghai, China<br>(上海交通大学外国语学院 · 上海，中国)</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Jan 2021 – Jan 2024</div>
+        <div class="timeline-content">
+          <h3>Postdoctoral Researcher (博士后)</h3>
+          <p>School of Foreign Languages, Shanghai Jiao Tong University · Shanghai, China<br>(上海交通大学外国语学院 · 上海，中国)</p>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <h2 class="section-heading">Education (教育经历)</h2>
+      <div class="timeline-item">
+        <div class="timeline-date">Sep 2017 – Jul 2021</div>
+        <div class="timeline-content">
+          <h3>Ph.D. (博士)</h3>
+          <p>Western Sydney University · MARCS Institute for Brain, Behaviour and Development<br>(澳大利亚西悉尼大学 · MARCS 脑、语言与发展研究所)</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Sep 2014 – Jul 2017</div>
+        <div class="timeline-content">
+          <h3>M.A. (硕士)</h3>
+          <p>Nanjing University · School of Foreign Studies<br>(南京大学 · 外国语学院)</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Sep 2009 – Jul 2013</div>
+        <div class="timeline-content">
+          <h3>B.A. (学士)</h3>
+          <p>Nantong University · School of Foreign Languages<br>(南通大学 · 外国语学院)</p>
+        </div>
+      </div>
+
+      <!-- Research Areas -->
+      <h2 class="section-heading">Research Directions (研究领域)</h2>
+      <div class="research-area">
+        <div class="area-label">LANGUAGE &amp; WELL-BEING</div>
+        <h3>Language and Well-being (语言与健康)</h3>
+        <p>My research in this area centers on discourse production, particularly in individuals with Chinese aphasia and elderly Chinese speakers. I explore the phonetic, semantic, and grammatical aspects of language to understand how these elements are affected by aging and neurological conditions. The ultimate goal is to apply these insights to develop reliable methods for assessing language abilities and creating intelligent systems for early screening of cognitive impairments.<br>（从语音、语义、语法不同层面多维研究汉语失语症、汉语老年人语言特征，并用于语言能力评估和认知障碍智能筛查。）</p>
+      </div>
+      <div class="research-area">
+        <div class="area-label">L2 SPEECH LEARNING</div>
+        <h3>Second Language Speech Learning (二语语音习得)</h3>
+        <p>In my work on second language (L2) acquisition, I investigate how factors such as language background and talker variability affect the learning of L2 phonetics. Through speech perception and production experiments, I aim to construct computational models that predict learning challenges in L2 speech learning, providing insights to improve L2 teaching practices and learning outcomes.<br>（通过语言感知和产出实验，探究二语母语者语言背景、认知因素等对于二语语音习得的影响，并建立计算模型，预测二语学习难点，辅助二语教学。）</p>
+      </div>
+      <div class="research-area">
+        <div class="area-label">DIGITAL HUMANITIES</div>
+        <h3>Digital Humanities (数字人文)</h3>
+        <p>My research in digital humanities relies on data science techniques to quantitatively analyse texts and explore their stylistic or semantic features, and translation styles.<br>（基于语言数据科学技术，构建文本语料库，量化分析文体风格、语义特征、情感、翻译风格等。）</p>
+      </div>
+
+      <!-- Teaching -->
+      <h2 class="section-heading" id="teaching">Teaching (教学)</h2>
+      <div class="teaching-card">
+        <div class="course-icon"><i class="fas fa-database"></i></div>
+        <div class="course-info">
+          <h3><a href="https://juqiangj.github.io/LanguageDS/index.html" target="_blank">Language Data Science (语言数据科学)</a></h3>
+          <p>An introduction to data science methods and tools for language research, covering corpus construction, quantitative analysis, visualization, and computational approaches to studying language.<br>
+          （面向语言研究的数据科学方法入门，涵盖语料库构建、量化分析、可视化以及语言计算的常用方法。）</p>
+          <a href="https://juqiangj.github.io/LanguageDS/index.html" class="course-link" target="_blank">
+            <i class="fas fa-external-link-alt" style="font-size:0.75rem;"></i> Course Website (课程网站)
+          </a>
+        </div>
+      </div>
+
+      <!-- Publications -->
+      <h2 class="section-heading" id="publications">Selected Publications (代表性论文)</h2>
+
+      <div class="publication-entry">
+        <h3><a href="https://doi.org/10.1038/s44400-026-00113-8" target="_blank">Clustering and switching patterns in semantic verbal fluency among Chinese older adults: associations with cognitive function and dementia screening <span aria-hidden="true">&#8599;</span></a></h3>
+        <p class="publication-meta"><strong>J. Chen</strong>, Y. Wu, X. Zhao, X. Xu, M. Wu &middot; <em>npj Dementia, 2(1), 53, 2026</em></p>
+        <p class="publication-theme-line"><span class="publication-theme">Language &amp; Well-being</span></p>
+        <div class="publication-actions">
+          <a class="publication-action" href="https://doi.org/10.1038/s44400-026-00113-8" target="_blank">DOI</a>
+          <a class="publication-action" href="pdfs/chen-etal-2026-verbal-fluency.pdf" target="_blank"><i class="fas fa-file-pdf" style="margin-right:0.2rem;"></i> PDF</a>
+        </div>
+      </div>
+
+      <div class="publication-entry">
+        <h3>汉语失语症患者话语产出中的词汇习得年龄特征研究 (Age of Acquisition Effects in Discourse Production by Mandarin Chinese Speakers with Aphasia)</h3>
+        <p class="publication-meta"><strong>陈居强</strong>, 常辉 &middot; <em>外国语 (Foreign Languages), 48(6), 32–41, 2025</em></p>
+        <p class="publication-theme-line"><span class="publication-theme">Language &amp; Well-being</span></p>
+        <div class="publication-actions">
+          <a class="publication-action" href="pdfs/chen-chang-2025-wgy-aoa.pdf" target="_blank"><i class="fas fa-file-pdf" style="margin-right:0.2rem;"></i> PDF</a>
+        </div>
+      </div>
+
+      <div class="publication-entry">
+        <h3>汉语失语症患者话语产出的词汇网络建模研究 (Lexical Network Modeling in Discourse Production by Mandarin Chinese Speakers with Aphasia)</h3>
+        <p class="publication-meta"><strong>陈居强</strong>, 常辉 &middot; <em>现代外语 (Modern Foreign Languages), 48(5), 609–619, 2025</em></p>
+        <p class="publication-theme-line"><span class="publication-theme">Language &amp; Well-being</span></p>
+        <div class="publication-actions">
+          <a class="publication-action" href="https://doi.org/10.20071/j.cnki.xdwy.20250620.010" target="_blank">DOI</a>
+          <a class="publication-action" href="pdfs/chen-chang-2025-xdwy-lexical-network.pdf" target="_blank"><i class="fas fa-file-pdf" style="margin-right:0.2rem;"></i> PDF</a>
+        </div>
+      </div>
+
+      <div class="publication-entry">
+        <h3><a href="https://doi.org/10.1080/17549507.2025.2557501" target="_blank">Quantitative analysis of lexical psycholinguistic properties in aphasia discourse production <span aria-hidden="true">&#8599;</span></a></h3>
+        <p class="publication-meta"><strong>J. Chen</strong>, H. Chang &middot; <em>International Journal of Speech-Language Pathology, 2025</em></p>
+        <p class="publication-theme-line"><span class="publication-theme">Language &amp; Well-being</span></p>
+        <div class="publication-actions">
+          <a class="publication-action" href="https://doi.org/10.1080/17549507.2025.2557501" target="_blank">DOI</a>
+          <a class="publication-action" href="pdfs/chen-chang-2025-lexical-psycholinguistic.pdf" target="_blank"><i class="fas fa-file-pdf" style="margin-right:0.2rem;"></i> PDF</a>
+        </div>
+      </div>
+
+      <div class="publication-entry">
+        <h3>Lexical network properties in aphasic discourse production</h3>
+        <p class="publication-meta"><strong>J. Chen</strong>, H. Chang &middot; <em>Clinical Linguistics &amp; Phonetics, 40(2), 187–205, 2025</em></p>
+        <p class="publication-theme-line"><span class="publication-theme">Language &amp; Well-being</span></p>
+        <div class="publication-actions">
+          <a class="publication-action" href="pdfs/chen-chang-2025-lexical-network.pdf" target="_blank"><i class="fas fa-file-pdf" style="margin-right:0.2rem;"></i> PDF</a>
+        </div>
+      </div>
+
+      <div class="publication-entry">
+        <h3><a href="https://doi.org/10.1177/02676583251336578" target="_blank">Native language phonological and phonetic influences on second language perception of Vietnamese tones <span aria-hidden="true">&#8599;</span></a></h3>
+        <p class="publication-meta"><strong>J. Chen</strong>, A. Qin, H. Chang &middot; <em>Second Language Research, 2025</em></p>
+        <p class="publication-theme-line"><span class="publication-theme">L2 Speech Learning</span></p>
+        <div class="publication-actions">
+          <a class="publication-action" href="https://doi.org/10.1177/02676583251336578" target="_blank">DOI</a>
+          <a class="publication-action" href="pdfs/chen-etal-2025-vietnamese-tones-l2.pdf" target="_blank"><i class="fas fa-file-pdf" style="margin-right:0.2rem;"></i> PDF</a>
+        </div>
+      </div>
+
+      <div class="publication-entry">
+        <h3><a href="https://doi.org/10.1080/02687038.2025.2549740" target="_blank">Global and local coherence in Mandarin Chinese aphasia spoken discourse <span aria-hidden="true">&#8599;</span></a></h3>
+        <p class="publication-meta">Y. Hu, <strong>J. Chen</strong> &middot; <em>Aphasiology, 2025</em></p>
+        <p class="publication-theme-line"><span class="publication-theme">Language &amp; Well-being</span></p>
+        <div class="publication-actions">
+          <a class="publication-action" href="https://doi.org/10.1080/02687038.2025.2549740" target="_blank">DOI</a>
+          <a class="publication-action" href="pdfs/hu-chen-2025-coherence.pdf" target="_blank"><i class="fas fa-file-pdf" style="margin-right:0.2rem;"></i> PDF</a>
+        </div>
+      </div>
+
+      <div class="publication-entry">
+        <h3><a href="https://doi.org/10.1080/02687038.2024.2325169" target="_blank">Core Lexicon analysis of spoken discourse production by Mandarin Chinese speakers with Aphasia <span aria-hidden="true">&#8599;</span></a></h3>
+        <p class="publication-meta"><strong>J. Chen</strong>, H. Chang &middot; <em>Aphasiology, 38(11), 1766–1785, 2024</em></p>
+        <p class="publication-theme-line"><span class="publication-theme">Language &amp; Well-being</span></p>
+        <div class="publication-actions">
+          <a class="publication-action" href="https://doi.org/10.1080/02687038.2024.2325169" target="_blank">DOI</a>
+          <a class="publication-action" href="pdfs/chen-chang-2024-core-lexicon.pdf" target="_blank"><i class="fas fa-file-pdf" style="margin-right:0.2rem;"></i> PDF</a>
+        </div>
+      </div>
+
+      <div class="publication-entry">
+        <h3><a href="https://doi.org/10.16995/labphon.9152" target="_blank">An investigation of the dynamics of vowel nasalization in Arabana using machine learning of acoustic features <span aria-hidden="true">&#8599;</span></a></h3>
+        <p class="publication-meta">C. Carignan, <strong>J. Chen</strong>, M. Harvey, C. Stockigt, J. Simpson, S. Strangways &middot; <em>Laboratory Phonology, 14(1), 2023</em></p>
+        <p class="publication-theme-line"><span class="publication-theme">L2 Speech Learning</span></p>
+        <div class="publication-actions">
+          <a class="publication-action" href="https://doi.org/10.16995/labphon.9152" target="_blank">DOI</a>
+          <a class="publication-action" href="pdfs/carignan-etal-2023-arabana-nasalization.pdf" target="_blank"><i class="fas fa-file-pdf" style="margin-right:0.2rem;"></i> PDF</a>
+        </div>
+      </div>
+
+      <div class="publication-entry">
+        <h3><a href="https://doi.org/10.1016/j.wocn.2022.101199" target="_blank">Phonological and phonetic contributions to perception of non-native lexical tones by tone language listeners: Effects of memory load and stimulus variability <span aria-hidden="true">&#8599;</span></a></h3>
+        <p class="publication-meta"><strong>J. Chen</strong>, M. Antoniou, C. T. Best &middot; <em>Journal of Phonetics, 96, 101199, 2023</em></p>
+        <p class="publication-theme-line"><span class="publication-theme">L2 Speech Learning</span></p>
+        <div class="publication-actions">
+          <a class="publication-action" href="https://doi.org/10.1016/j.wocn.2022.101199" target="_blank">DOI</a>
+          <a class="publication-action" href="pdfs/chen-etal-2023-nonnative-tones-memory.pdf" target="_blank"><i class="fas fa-file-pdf" style="margin-right:0.2rem;"></i> PDF</a>
+        </div>
+      </div>
+
+      <div class="publication-entry">
+        <h3><a href="https://doi.org/10.16995/labphon.6435" target="_blank">Phonological and phonetic contributions to Thai-naïve Mandarin and Vietnamese speakers' imitation of Thai lexical tones <span aria-hidden="true">&#8599;</span></a></h3>
+        <p class="publication-meta"><strong>J. Chen</strong>, C. T. Best, M. Antoniou &middot; <em>Laboratory Phonology, 14(1), Article 1, 2023</em></p>
+        <p class="publication-theme-line"><span class="publication-theme">L2 Speech Learning</span></p>
+        <div class="publication-actions">
+          <a class="publication-action" href="https://doi.org/10.16995/labphon.6435" target="_blank">DOI</a>
+          <a class="publication-action" href="pdfs/chen-etal-2023-thai-tone-imitation.pdf" target="_blank"><i class="fas fa-file-pdf" style="margin-right:0.2rem;"></i> PDF</a>
+        </div>
+      </div>
+
+      <div class="publication-entry">
+        <h3><a href="https://doi.org/10.1556/084.2023.00375" target="_blank">Testing simplification in translated and creative writing texts: The case of Robert van Gulik's Judge Dee detective stories <span aria-hidden="true">&#8599;</span></a></h3>
+        <p class="publication-meta"><strong>J. Chen</strong>, H. Chang &middot; <em>Across Languages and Cultures, 24(2), 268–282, 2023</em></p>
+        <p class="publication-theme-line"><span class="publication-theme">Digital Humanities</span></p>
+        <div class="publication-actions">
+          <a class="publication-action" href="https://doi.org/10.1556/084.2023.00375" target="_blank">DOI</a>
+          <a class="publication-action" href="pdfs/chen-chang-2023-simplification.pdf" target="_blank"><i class="fas fa-file-pdf" style="margin-right:0.2rem;"></i> PDF</a>
+        </div>
+      </div>
+
+      <div class="publication-entry">
+        <h3><a href="https://www.frontiersin.org/article/10.3389/fpsyg.2022.822241" target="_blank">Sketching the Landscape of Speech Perception Research (2000–2020): A Bibliometric Study <span aria-hidden="true">&#8599;</span></a></h3>
+        <p class="publication-meta"><strong>J. Chen</strong>, H. Chang &middot; <em>Frontiers in Psychology, 13, 2022</em></p>
+        <p class="publication-theme-line"><span class="publication-theme">Digital Humanities</span></p>
+        <div class="publication-actions">
+          <a class="publication-action" href="https://doi.org/10.3389/fpsyg.2022.822241" target="_blank">DOI</a>
+          <a class="publication-action" href="pdfs/chen-chang-2022-speech-perception-bibliometric.pdf" target="_blank"><i class="fas fa-file-pdf" style="margin-right:0.2rem;"></i> PDF</a>
+        </div>
+      </div>
+
+      <div class="publication-entry">
+        <h3><a href="https://doi.org/10.1016/j.wocn.2020.101013" target="_blank">Native phonological and phonetic influences in perceptual assimilation of monosyllabic Thai lexical tones by Mandarin and Vietnamese listeners <span aria-hidden="true">&#8599;</span></a></h3>
+        <p class="publication-meta"><strong>J. Chen</strong>, C. T. Best, M. Antoniou &middot; <em>Journal of Phonetics, 83, 101013, 2020</em></p>
+        <p class="publication-theme-line"><span class="publication-theme">L2 Speech Learning</span></p>
+        <div class="publication-actions">
+          <a class="publication-action" href="https://doi.org/10.1016/j.wocn.2020.101013" target="_blank">DOI</a>
+          <a class="publication-action" href="pdfs/chen-etal-2020-thai-tones-assimilation.pdf" target="_blank"><i class="fas fa-file-pdf" style="margin-right:0.2rem;"></i> PDF</a>
+        </div>
+      </div>
+
+      <!-- Awards -->
+      <h2 class="section-heading">Selected Grants and Honors (主要项目与荣誉)</h2>
+      <ul class="awards-list">
+        <li>
+          <strong>Shanghai "Super Postdoctoral Fellow" Incentive Program</strong><br>
+          （上海市"超级博士后"激励计划）
+          <span class="award-badge">Shanghai Super Postdoc</span>
+        </li>
+        <li>
+          <strong>National Social Science Fund of China (Post-stage Project)</strong> — Cross-linguistic Perspective on Tone Contrast, Acquisition and Computational Modeling, 2025<br>
+          （国家社科基金后期项目 — 跨语言视角下的声调对比、习得与计算建模研究）
+        </li>
+        <li>
+          <strong>Ministry of Education Humanities and Social Sciences Youth Project</strong> — Feature Extraction and AI-based Evaluation of Discourse Production by Mandarin Post-stroke Aphasia Patients, 2023<br>
+          （教育部人文社会科学研究青年项目 — 汉语中风失语症语言产出特征提取及智能评估研究）
+        </li>
+        <li>
+          <strong>China Postdoctoral Science Foundation Grant</strong> — Artificial Intelligence-Assisted Diagnosis of Chinese Post-stroke Aphasia, 2022<br>
+          （中国博士后科学基金面上项目 — 基于人工智能的汉语脑中风失语症辅助诊断研究）
+        </li>
+        <li>
+          <strong>National Language Commission General Project</strong> — Construction and Intelligent Application of Dynamic Corpus for Aphasia Rehabilitation in Digital Chinese Context, 2026<br>
+          （国家语委一般项目 — 数字中文视域下的失语症康复动态语料库构建与智能化应用研究）
+        </li>
+      </ul>
+
+      <!-- Profiles -->
+      <h2 class="section-heading">Profiles (学术档案)</h2>
+      <p class="profiles-section">
+        For the complete publication record, visit 
+        <a href="https://www.researchgate.net/profile/Juqiang-Chen-2" target="_blank">ResearchGate</a> 
+        or <a href="https://sfl.sjtu.edu.cn/faculty/43303" target="_blank">中文官方主页</a>.<br>
+        WeChat Official Account: <strong>Data Science and Language Research (数据科学与语言研究)</strong>.<br>
+        （完整论文列表请访问 <a href="https://www.researchgate.net/profile/Juqiang-Chen-2" target="_blank">ResearchGate</a> 或 <a href="https://sfl.sjtu.edu.cn/faculty/43303" target="_blank">中文官方主页</a>。微信公众号：<strong>数据科学与语言研究</strong>。）
+      </p>
+
     </div>
-    {% endif %}
+  </div>
 
-   </article>
-  {% endfor %}
-</div>
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div class="footer-social">
+        <strong>FOLLOW:</strong>
+        <a href="https://github.com/juqiangj" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.researchgate.net/profile/Juqiang-Chen-2" target="_blank" aria-label="ResearchGate"><i class="ai ai-researchgate"></i></a>
+      </div>
+      <div class="footer-copyright">
+        &copy; 2026 Juqiang Chen (陈居强). School of Foreign Languages, Shanghai Jiao Tong University.
+      </div>
+    </div>
+  </footer>
 
-{% if paginator.total_pages > 1 %}
-<ul class="pager main-pager">
-  {% if paginator.previous_page %}
-  <li class="previous">
-    <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; Newer Posts</a>
-  </li>
-  {% endif %}
-  {% if paginator.next_page %}
-  <li class="next">
-    <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older Posts &rarr;</a>
-  </li>
-  {% endif %}
-</ul>
-{% endif %}
+</body>
+</html>
