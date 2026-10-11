@@ -425,9 +425,8 @@
       max-width: 1200px;
       margin: 0 auto;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: flex-start;
       gap: 1rem;
     }
     .footer-social {
@@ -448,6 +447,122 @@
     .footer-copyright {
       font-size: 0.8rem;
       color: #999;
+    }
+
+    .visitor-counter {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      padding: 1rem 1.2rem;
+      background: #fdf5f5;
+      border: 1px solid #f0d0d0;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      width: 100%;
+    }
+    .visitor-counter__icon {
+      color: #990000;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      padding-top: 0.1rem;
+    }
+    .visitor-counter__content {
+      flex: 1;
+      min-width: 0;
+    }
+    .visitor-counter__title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 0.3rem;
+    }
+    .visitor-counter__reading {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .visitor-counter__reading strong {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #990000;
+      margin-right: 0.3rem;
+    }
+    .visitor-counter__reading span {
+      font-size: 0.85rem;
+      color: #666;
+    }
+    .visitor-counter__locations {
+      margin-top: 0.5rem;
+    }
+    .visitor-counter__locations summary {
+      font-size: 0.8rem;
+      color: #555;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .visitor-counter__location-total {
+      font-size: 0.75rem;
+      color: #990000;
+      font-weight: 600;
+    }
+    .visitor-counter__country-breakdown {
+      margin-top: 0.5rem;
+    }
+    .visitor-counter__country-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .visitor-counter__country-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      padding: 0.2rem 0;
+    }
+    .visitor-counter__country-name {
+      width: 120px;
+      flex-shrink: 0;
+      color: #555;
+    }
+    .visitor-counter__country-count {
+      width: 50px;
+      flex-shrink: 0;
+      font-weight: 600;
+      color: #333;
+      text-align: right;
+    }
+    .visitor-counter__country-bar {
+      flex: 1;
+      height: 8px;
+      background: #f0e0e0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .visitor-counter__country-bar span {
+      display: block;
+      height: 100%;
+      background: #990000;
+      border-radius: 4px;
+    }
+    .visitor-counter__country-note {
+      font-size: 0.7rem;
+      color: #999;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+    .screen-reader-text {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      border: 0;
     }
 
     @media (max-width: 768px) {
@@ -861,6 +976,31 @@
 
   <footer class="site-footer">
     <div class="site-footer__inner">
+
+      <!-- Visitor Counter -->
+      <section class="visitor-counter" aria-labelledby="visitor-counter-title">
+        <span class="visitor-counter__icon" aria-hidden="true">
+          <i class="fas fa-users"></i>
+        </span>
+        <div class="visitor-counter__content">
+          <p class="visitor-counter__title" id="visitor-counter-title">Visitors in the last 30 days</p>
+          <p class="visitor-counter__reading">
+            <strong data-statable="visitors">—</strong>
+            <span>visitors</span>
+          </p>
+          <details class="visitor-counter__locations">
+            <summary>
+              <span>Visitors by location</span>
+              <span class="visitor-counter__location-total" data-statable="location-count">—</span>
+            </summary>
+            <div class="visitor-counter__country-breakdown">
+              <ol class="visitor-counter__country-list" data-statable="country-list"></ol>
+              <p class="visitor-counter__country-note">Location estimates are approximate; counts may not add to the overall total.</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
       <div class="footer-social">
         <strong>FOLLOW:</strong>
         <a href="https://github.com/juqiangj" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
@@ -872,5 +1012,6 @@
     </div>
   </footer>
 
+  <script src="https://statable.com/js/3410163/s.js" defer></script>
 </body>
 </html>
